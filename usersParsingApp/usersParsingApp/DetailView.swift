@@ -64,10 +64,11 @@ struct DetailView: View {
                         }
                         Text(user.isActive ? "Active" : "")
                     }
-                    .shadow(color: Color.yellow, radius: 8)
+                    .shadow(color: Color.yellow, radius: 5)
                 }
             }
         }
+        .toolbarColorScheme(.light, for: .navigationBar)
     }
 }
 

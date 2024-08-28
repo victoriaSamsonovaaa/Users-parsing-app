@@ -9,8 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @State private var isLoad = false
-    @Query(sort: \User.name) var users: [User]
+    @Query(sort: [SortDescriptor(\User.age), SortDescriptor(\User.name)]) var users: [User]
     @Environment(\.modelContext) var modelContext
     let columns = [
         GridItem(.adaptive(minimum: 200))
@@ -37,7 +36,7 @@ struct ContentView: View {
                                 }
                                 .foregroundStyle(user.isActive ? .lionsmane : .platinum.opacity(0.4))
                                 .padding(.leading, 10)
-                               // .padding()
+                                .padding()
                                 .clipShape(.rect(cornerRadius: 10))
                                 .frame(height: 70)
                                 .overlay(
@@ -61,7 +60,6 @@ struct ContentView: View {
                 .task {
                     if users.isEmpty {
                         await fetchData()
-                        //isLoad = true
                     }
                 }
             }
