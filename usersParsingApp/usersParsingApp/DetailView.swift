@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DetailView: View {
-let user: User
+    @Environment(\.modelContext) var moselContext
+    let user: User
     var body: some View {
         NavigationStack {
             Form {
@@ -53,9 +55,13 @@ let user: User
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack {
-                        Image(systemName: user.isActive ? "moonphase.new.moon.inverse" : "")
-                            .renderingMode(.original)
-                            .foregroundStyle(.yellow).opacity(0.7)
+                        if user.isActive {
+                            Image(systemName: "moonphase.new.moon.inverse")
+                                .renderingMode(.original)
+                                .foregroundStyle(.yellow).opacity(0.7)
+                        } else {
+                            Text("")
+                        }
                         Text(user.isActive ? "Active" : "")
                     }
                     .shadow(color: Color.yellow, radius: 8)
@@ -67,5 +73,5 @@ let user: User
 
 #Preview {
     
-    DetailView(user: User(id: UUID(), isActive: true, name: "Alford Rodriguez", age: 21, company: "Imkam", email: "alfordrodriguez@imkan.com", address: "907 Nelson Street, Cotopaxi, South Dakota, 5913", about: "Occaecat consequat elit aliquip magna laboris dolore laboris sunt officia adipisicing reprehenderit sunt. Do in proident consectetur labore. Laboris pariatur quis incididunt nostrud labore ad cillum veniam ipsum ullamco. Dolore laborum commodo veniam nisi. Eu ullamco cillum ex nostrud fugiat eu consequat enim cupidatat. Non incididunt fugiat cupidatat reprehenderit nostrud eiusmod eu sit minim do amet qui cupidatat. Elit aliquip nisi ea veniam proident dolore exercitation irure est deserunt.", registered: Date(), tags: ["tag1", "tag2"], friends: [User.Friend(id: UUID(), name: "Jane Smith")]))
+    DetailView(user: User(id: UUID(), isActive: true, name: "Alford Rodriguez", age: 21, company: "Imkam", email: "alfordrodriguez@imkan.com", address: "907 Nelson Street, Cotopaxi, South Dakota, 5913", about: "Occaecat consequat elit aliquip magna laboris dolore laboris sunt officia adipisicing reprehenderit sunt. Do in proident consectetur labore. Laboris pariatur quis incididunt nostrud labore ad cillum veniam ipsum ullamco. Dolore laborum commodo veniam nisi. Eu ullamco cillum ex nostrud fugiat eu consequat enim cupidatat. Non incididunt fugiat cupidatat reprehenderit nostrud eiusmod eu sit minim do amet qui cupidatat. Elit aliquip nisi ea veniam proident dolore exercitation irure est deserunt.", registered: Date(), tags: ["tag1", "tag2"], friends: [Friend(id: UUID(), name: "Jane Smith")]))
 }
