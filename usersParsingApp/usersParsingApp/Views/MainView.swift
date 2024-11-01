@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct MainView: View {
     @Query(sort: [SortDescriptor(\User.age), SortDescriptor(\User.name)]) var users: [User]
     @Environment(\.modelContext) var modelContext
     let columns = [
@@ -59,15 +59,14 @@ struct ContentView: View {
                 .preferredColorScheme(.dark)
                 .task {
                     if users.isEmpty {
-                        await fetchData()
+                        await fetchData(modelContext: modelContext)
                     }
                 }
             }
         }
     }
-    func fetchData() async {
+    func fetchData(modelContext: ModelContext) async {
         print("fetchData() called")
-//        try? modelContext.delete(model: User.self)
         print(users.count)
         guard let url = URL(string: "https://www.hackingwithswift.com/samples/friendface.json") else {
             print("Invalid URL")
@@ -96,17 +95,11 @@ struct ContentView: View {
             catch {
                 print("Failed to decode JSON: \(error)")
             }
-//                do {
-//                    users.removeAll()
-//                    let decodedResponse = try decoder.decode([User].self, from: data)
-//                    users = decodedResponse
-//                } catch {
-//                    print("Failed to decode JSON: \(error)")
         }
     }
     
 }
 
 #Preview {
-    ContentView()
+    MainView()
 }

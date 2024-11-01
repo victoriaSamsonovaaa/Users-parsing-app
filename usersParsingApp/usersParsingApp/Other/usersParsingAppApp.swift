@@ -12,7 +12,7 @@ import SwiftData
 struct usersParsingAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
         }
         .modelContainer(for: User.self)
     }

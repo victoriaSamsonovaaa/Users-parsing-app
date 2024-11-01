@@ -9,8 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct DetailView: View {
-    @Environment(\.modelContext) var moselContext
+    
     let user: User
+    
     var body: some View {
         NavigationStack {
             Form {
